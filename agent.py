@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 from langchain.chat_models import init_chat_model
 from langchain.agents import create_agent
 from langgraph.checkpoint.memory import InMemorySaver
-
+from schema_store import collection
 
 load_dotenv()  # Load environment variables from .env file
 
