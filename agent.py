@@ -52,6 +52,15 @@ DB_CONFIG = {
 def get_connection():
     return psycopg.connect(**DB_CONFIG)
 
+@tool
+def retrieve_relevant_schema(question: str) -> str:
+    """Given a user's question, retrieve descriptions of the most relevant
+    tables/columns in the database before inspecting the schema directly.
+    Use this first to narrow down which tables are relevant to the question.
+    """
+    results = collection.query(query_texts=[question], n_results=2)
+    docs = results.get("documents", [[]])[0]
+    return "\n\n".join(docs) if docs else "No relevant schema found."
 
 @tool
 def sql_db_list_tables() -> str:
@@ -257,6 +266,7 @@ tools = [
     sql_db_schema,
     sql_db_query,
     sql_db_query_checker,
+    retrieve_relevant_schema,
 ]
 
 
