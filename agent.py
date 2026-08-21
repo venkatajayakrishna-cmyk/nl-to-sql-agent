@@ -272,12 +272,3 @@ agent = create_agent(
     system_prompt=SYSTEM_PROMPT,
     checkpointer=InMemorySaver()
 )
-
-question = input("Enter your question: ")
-
-config = {"configurable": {"thread_id": "session-1"}}
-response = agent.invoke(
-    {"messages": [{"role": "user", "content": question}]},
-    config=config
-)
-print(response["messages"][-1].content[0]["text"])
